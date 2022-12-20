@@ -14,9 +14,15 @@ int main()
 	b.insert(12);
 	b.insert(13);
 	b.insert(20);
+	
+	cout << "Before insert operation:" << endl;
+	b.PreOrder();
+	b.InOrder();
+	b.PostOrder();
+
 	b.insert(23);
 
-	cout << "Before find operation:" << endl;
+	cout <<endl<< "Before find operation:" << endl;
 	b.PreOrder();
 	b.InOrder();
 	b.PostOrder();
@@ -28,4 +34,14 @@ int main()
 	b.PreOrder();
 	b.InOrder();
 	b.PostOrder();
+
+	cout << endl << "Min value of tree:" << b.tree_min()->item << endl;
+	cout << endl << "Max value of tree:" << b.tree_max()->item << endl;
+
+	cout << endl << "enter a sub tree value:";
+	cin >> key;
+	cout << endl;
+
+	cout << endl << "Max value of tree:" << b.min(b.find(key))->item << endl;
+	cout << endl << "Max value of tree:" << b.max(b.find(key))->item << endl;
 }

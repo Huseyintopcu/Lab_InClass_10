@@ -9,11 +9,13 @@ void BST::deletenodes(BinarySearchTree* node)
 }
 void BST::insert(int item)
 {
+	stack<BinarySearchTree*> S;
 	BinarySearchTree* q = NULL;
 	BinarySearchTree* p = root;
 
 	while (p)
 	{
+		S.push(p);
 		q = p;
 		if (item == p->item)
 		{
@@ -42,9 +44,10 @@ void BST::insert(int item)
 	{
 		q->right = node;
 	}
+	splay(S);
 }
 
-bool BST::find(int key)
+BinarySearchTree* BST::find(int key)
 {
 	stack<BinarySearchTree*> S;
 	BinarySearchTree* p = root;
@@ -53,12 +56,12 @@ bool BST::find(int key)
 		S.push(p);
 		if (key == p->item) {
 			splay(S);
-			return true;
+			return p;
 		}
 		if (key < p->item) p = p->left;
 		else			  p = p->right;
 	}
-	return false;
+	return NULL;
 }
 
 
@@ -167,6 +170,36 @@ void BST::splay(stack<BinarySearchTree*>& S)
 			p->left = x->right;
 			x->right = p;
 		}
+	}
+
+	BinarySearchTree* BST::tree_max()
+	{
+		return max(root);
+	}
+
+	BinarySearchTree* BST::tree_min()
+	{
+		return min(root);
+	}
+
+	BinarySearchTree* BST::max(BinarySearchTree* sub_root)
+	{
+		BinarySearchTree* tmp = sub_root;
+		while (tmp->right!=NULL)
+		{
+			tmp = tmp->right;
+		}
+		return tmp;
+	}
+
+	BinarySearchTree* BST::min(BinarySearchTree* sub_root)
+	{
+		BinarySearchTree* tmp = sub_root;
+		while (tmp->left != NULL)
+		{
+			tmp = tmp->left;
+		}
+		return tmp;
 	}
 
 	void BST::PreOrder()
